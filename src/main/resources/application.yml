@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: user
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3320/userdb
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        format_sql: true
+    show-sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type: trace
