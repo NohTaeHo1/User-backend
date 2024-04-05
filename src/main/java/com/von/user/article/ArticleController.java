@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.von.user.common.BaseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.von.user.article.model.Article;
+import com.von.user.article.service.ArticleServiceImpl;
 import com.von.user.common.component.MessengerVo;
+import com.von.user.common.component.PageRequestVo;
+import com.von.user.common.model.BaseEntity;
+import com.von.user.user.model.UserDto;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,5 +39,12 @@ public class ArticleController extends BaseEntity {
         // .build());
 
         return map;
+    }
+
+    @PostMapping(path = "")
+    public ResponseEntity<MessengerVo> save(PageRequestVo vo) {
+        service.save(null);
+        //User newUser = service.save(param);
+        return ResponseEntity.ok(new MessengerVo());
     }
 }

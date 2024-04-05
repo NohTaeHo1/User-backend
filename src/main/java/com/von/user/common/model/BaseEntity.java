@@ -1,4 +1,4 @@
-package com.von.user.common;
+package com.von.user.common.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

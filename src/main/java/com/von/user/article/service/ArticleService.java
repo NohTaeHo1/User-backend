@@ -1,10 +1,10 @@
-package com.von.user.article;
+package com.von.user.article.service;
 
 
-import com.von.user.board.Board;
-import com.von.user.board.BoardDto;
-import com.von.user.common.command.CommandService;
-import com.von.user.common.query.QueryService;
+import com.von.user.article.model.Article;
+import com.von.user.article.model.ArticleDto;
+import com.von.user.common.service.CommandService;
+import com.von.user.common.service.QueryService;
 
 import java.util.Optional;
 
@@ -20,12 +20,9 @@ public interface ArticleService extends CommandService<ArticleDto>, QueryService
 
     }
 
-    default Optional<ArticleDto> entityToDto(Article ent) {
-        ArticleDto dto = ArticleDto.builder()
+    default ArticleDto entityToDto(Optional<Article> opt) {
+        ArticleDto dto = ArticleDto.builder().build();
 
-                .content(ent.getContent())
-                .build();
-
-        return Optional.of(dto);
+        return dto;
     }
 }

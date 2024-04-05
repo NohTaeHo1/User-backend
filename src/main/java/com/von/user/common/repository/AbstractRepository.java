@@ -1,4 +1,4 @@
-package com.von.user.common;
+package com.von.user.common.repository;
 
 import java.io.IOException;
 import java.util.Map;

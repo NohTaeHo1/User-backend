@@ -1,16 +1,10 @@
-package com.von.user.article;
+package com.von.user.article.model;
 
-import com.von.user.board.Board;
-import com.von.user.common.BaseEntity;
-import com.von.user.user.User;
+import com.von.user.board.model.Board;
+import com.von.user.common.model.BaseEntity;
+import com.von.user.user.model.User;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,11 +22,11 @@ public class Article extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User writer;
 

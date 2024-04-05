@@ -1,6 +1,6 @@
 package com.von.user.common.component;
 
-import com.von.user.article.ArticleDto;
+import com.von.user.article.model.ArticleDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

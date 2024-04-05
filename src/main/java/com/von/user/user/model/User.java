@@ -1,8 +1,8 @@
-package com.von.user.user;
+package com.von.user.user.model;
 import java.util.List;
 
-import com.von.user.article.Article;
-import com.von.user.common.BaseEntity;
+import com.von.user.article.model.Article;
+import com.von.user.common.model.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
