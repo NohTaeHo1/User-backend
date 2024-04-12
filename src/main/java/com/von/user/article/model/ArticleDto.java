@@ -1,5 +1,7 @@
 package com.von.user.article.model;
 
+import com.von.user.board.model.Board;
+import com.von.user.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,8 +19,8 @@ public class ArticleDto {
     private Long id;
     private String title;
     private String content;
-    private String registerDate;
-
-    private Long boardId;
     private Long writerId;
+    private Long boardId;
+    private String regDate;
+    private String modDate;
 }

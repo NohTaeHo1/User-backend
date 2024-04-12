@@ -1,6 +1,7 @@
 package com.von.user.board.model;
 
 import com.von.user.article.model.Article;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,8 +19,11 @@ import java.util.List;
 //@Log4j
 public class BoardDto {
     private Long id;
+
     private String boardName;
     private String boardType;
+    private String regDate;
+    private String modDate;
     //private List<Article> articles = new ArrayList<>();
 
 }

@@ -3,8 +3,10 @@ package com.von.user.board.service;
 import com.von.user.article.model.ArticleDto;
 import com.von.user.board.model.Board;
 import com.von.user.board.model.BoardDto;
+import com.von.user.common.component.MessengerVo;
 import com.von.user.common.service.CommandService;
 import com.von.user.common.service.QueryService;
+import com.von.user.user.model.UserDto;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,8 +14,11 @@ import java.util.Optional;
 
 public interface BoardService extends CommandService<BoardDto>, QueryService<BoardDto> {
 
+
     default Board dtoToEntity(BoardDto dto) {
         Board board = Board.builder()
+                .id(dto.getId())
+                .boardType(dto.getBoardType())
                 .boardName(dto.getBoardName())
                 .build();
 
@@ -23,9 +28,12 @@ public interface BoardService extends CommandService<BoardDto>, QueryService<Boa
 
     }
 
-    default BoardDto entityToDto(Optional<Board> opt) {
-        BoardDto dto = BoardDto.builder().build();
-        return dto;
+    default BoardDto entityToDto(Board board) {
+        return BoardDto.builder()
+                .id(board.getId())
+                .boardName(board.getBoardName())
+                .boardType(board.getBoardType())
+                .build();
 
     }
 

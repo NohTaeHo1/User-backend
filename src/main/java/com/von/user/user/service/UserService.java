@@ -3,6 +3,7 @@ package com.von.user.user.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.von.user.common.component.MessengerVo;
 import com.von.user.common.service.CommandService;
 import com.von.user.common.service.QueryService;
 import com.von.user.user.model.User;
@@ -10,8 +11,18 @@ import com.von.user.user.model.UserDto;
 
 public interface UserService extends CommandService<UserDto>, QueryService<UserDto> {
 
+    MessengerVo modify(UserDto user);
+    List<UserDto> findUsersByName(String name);
+    List<UserDto> findUsersByJob(String job);
+    Optional<User> findUserByUsername(String username);
+
     default User dtoToEntity(UserDto dto) {
         User user = User.builder()
+                .id(dto.getId())
+                .phone(dto.getPhone())
+                .name(dto.getName())
+                .password(dto.getPassword())
+                .username(dto.getUsername())
                 .job(dto.getJob())
                 .build();
 
@@ -21,10 +32,18 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
 
     }
 
-    default UserDto entityToDto(Optional<User> opt) {
-        UserDto dto = UserDto.builder().build();
-        return dto;
+    default UserDto entityToDto(User user) {
+        return UserDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .name(user.getName())
+                .phone(user.getPhone())
+                .job(user.getJob())
+                .email(user.getEmail())
+                .build();
 
     }
 
+    MessengerVo login(UserDto param);
 }
