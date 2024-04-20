@@ -31,24 +31,22 @@ public class ArticleController extends BaseEntity {
 
     private final ArticleServiceImpl service;
 
-    @SuppressWarnings("unchecked")
-    @PostMapping("")
-    public ResponseEntity<MessengerVo> save(ArticleDto dto) throws SQLException {
+    @PostMapping("/save")
+    public ResponseEntity<MessengerVo> save(@RequestBody ArticleDto dto){
         log.info("입력받은 정보 : {}", dto );
         return ResponseEntity.ok(service.save(dto));
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<MessengerVo> deleteById(@RequestParam Long id) {
+    public ResponseEntity<MessengerVo> deleteById(@RequestParam("id") Long id) {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.deleteById(id));
     }
     @GetMapping("/list")
-    public ResponseEntity<List<ArticleDto>> findAll(){
-        log.info("입력받은 정보 : {}" );
+    public ResponseEntity<List<ArticleDto>> findByBoardId(){
         return ResponseEntity.ok(service.findAll());
     }
-    @GetMapping("/detail")
-    public ResponseEntity<Optional<ArticleDto>> findById(@RequestParam Long id) {
+    @GetMapping("/detail/")
+    public ResponseEntity<Optional<ArticleDto>> findById(@RequestParam("id") Long id) {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.findById(id));
     }
@@ -61,4 +59,11 @@ public class ArticleController extends BaseEntity {
         service.existsById(0L);
         return ResponseEntity.ok(new MessengerVo());
     }
+
+    @GetMapping("/detail/{id}")
+    public List<ArticleDto> findArticleById(@PathVariable long id) {
+        return service.findArticleById(id);
+    }
+
+
 }

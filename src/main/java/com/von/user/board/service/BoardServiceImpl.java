@@ -22,7 +22,6 @@ import java.util.Optional;
 public class BoardServiceImpl implements BoardService{
     private final BoardRepository repo;
 
-
     @Override
     public MessengerVo save(BoardDto t) {
         entityToDto((repo.save(dtoToEntity(t))));

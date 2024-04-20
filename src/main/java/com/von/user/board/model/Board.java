@@ -20,13 +20,12 @@ import lombok.*;
 public class Board extends BaseEntity{
 
     @Id
-    @Column(name = "id",nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "board_name")
-    private String boardName;
-    private String boardType;
+    private String title;
+    private String description;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Article> articles;

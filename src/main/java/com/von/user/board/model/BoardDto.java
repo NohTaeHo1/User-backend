@@ -19,9 +19,8 @@ import java.util.List;
 //@Log4j
 public class BoardDto {
     private Long id;
-
-    private String boardName;
-    private String boardType;
+    private String title;
+    private String description;
     private String regDate;
     private String modDate;
     //private List<Article> articles = new ArrayList<>();

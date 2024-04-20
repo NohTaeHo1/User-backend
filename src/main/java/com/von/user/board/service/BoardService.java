@@ -18,8 +18,8 @@ public interface BoardService extends CommandService<BoardDto>, QueryService<Boa
     default Board dtoToEntity(BoardDto dto) {
         Board board = Board.builder()
                 .id(dto.getId())
-                .boardType(dto.getBoardType())
-                .boardName(dto.getBoardName())
+                .description(dto.getDescription())
+                .title(dto.getTitle())
                 .build();
 
         //boardId로 DB를 조회해서 해당 게시판에 게시된 글의 목록을 가져올 경우
@@ -31,8 +31,8 @@ public interface BoardService extends CommandService<BoardDto>, QueryService<Boa
     default BoardDto entityToDto(Board board) {
         return BoardDto.builder()
                 .id(board.getId())
-                .boardName(board.getBoardName())
-                .boardType(board.getBoardType())
+                .title(board.getTitle())
+                .description(board.getDescription())
                 .build();
 
     }

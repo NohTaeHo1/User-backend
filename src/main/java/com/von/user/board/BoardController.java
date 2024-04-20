@@ -39,7 +39,6 @@ public class BoardController {
         return ResponseEntity.ok(service.findById(id));
     }
 
-
     public List<?> readArticles() throws SQLException {
         return null;
     }

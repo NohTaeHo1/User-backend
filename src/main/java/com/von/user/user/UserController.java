@@ -1,31 +1,17 @@
 package com.von.user.user;
 
-import java.sql.SQLException;
-import java.util.*;
-
-import com.von.user.user.model.User;
-import com.von.user.user.model.UserDto;
-import com.von.user.user.repository.UserRepository;
-import com.von.user.user.service.UserServiceImpl;
 import com.von.user.common.component.MessengerVo;
-
+import com.von.user.user.model.UserDto;
+import com.von.user.user.service.UserServiceImpl;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springdoc.core.converters.models.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
-import java.util.*;
-
-
-import lombok.RequiredArgsConstructor;
-
-import javax.annotation.processing.Messager;
+import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @ApiResponses(value = {
@@ -64,7 +50,6 @@ public class UserController {
         return ResponseEntity.ok(service.modify(param));
     }
 
-
     @DeleteMapping("/delete")
     public ResponseEntity<MessengerVo> deleteById(@RequestParam Long id) {
         log.info("입력받은 정보 : {}", id );
@@ -87,5 +72,11 @@ public class UserController {
     public ResponseEntity<MessengerVo> login(@RequestBody UserDto param) {
         log.info("입력받은 정보 : {}", param );
         return ResponseEntity.ok(service.login(param));
+    }
+
+    @GetMapping(path = "/exist-username")
+    public ResponseEntity<Boolean> existByUsername(@RequestParam("username") String username){
+        log.info("existByUsername : "+username);
+        return ResponseEntity.ok(service.existsByUsername(username));
     }
 }

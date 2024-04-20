@@ -12,11 +12,11 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Builder
-@ToString(exclude = { "id" })
+@ToString(exclude = { "id", "token" })
 public class User extends BaseEntity{
 
     @Id
-    @Column//(name = "id", nullable = false)
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
@@ -25,14 +25,13 @@ public class User extends BaseEntity{
     private String name;
     private String phone;
     private String job;
-
+    private String token;
 
     @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
     private List<Article> articles;
 
     // @OneToMany(mappedBy = "user")
     // private List<Order> ordersId;
-
 
     public void setPassword(String password) {
         this.password = password;

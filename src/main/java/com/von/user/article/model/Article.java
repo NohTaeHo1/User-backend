@@ -20,17 +20,25 @@ import lombok.extern.log4j.Log4j2;
 public class Article extends BaseEntity{
 
     @Id
-    @Column(name ="id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name ="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "writer", nullable = true)
+    @JoinColumn(name = "user_id", nullable = true)
     private User writer;
 
     @ManyToOne
-    @JoinColumn(name = "board", nullable = true)
+    @JoinColumn(name = "board_id", nullable = true)
     private Board board;
+
+    public static Article of(String title, String content){
+        Article article = new Article();
+        article.title = title;
+        article.content = content;
+
+        return article;
+    }
 }

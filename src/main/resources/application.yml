@@ -12,7 +12,7 @@ spring:
       mode: always
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
@@ -22,10 +22,14 @@ spring:
         format_sql: true
     show-sql: true
     defer-datasource-initialization: true
-    open-in-view: false
+#    open-in-view: true
 logging:
   level:
     org:
       hibernate:
         SQL: debug
         type: trace
+jwt:
+  iss: von.com
+  exp: 24*60*60*1000 #밀리초(하루)
+  secret: vonwefwegerglijaldskfqhewlkghlkqjglkjlkdjfalkjaslkejglkjralkgjlerakjglkqjerlkgmqwrgkearhgkjhrakjghkjerahgkjerag
