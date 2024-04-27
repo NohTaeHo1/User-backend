@@ -26,6 +26,7 @@ public class Board extends BaseEntity{
 
     private String title;
     private String description;
+    private String content;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Article> articles;

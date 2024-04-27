@@ -2,13 +2,13 @@ package com.von.user.user.service;
 
 
 import java.util.Base64;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.von.user.common.component.JwtProvider;
+import com.von.user.article.model.Article;
+import com.von.user.common.component.security.JwtProvider;
 import com.von.user.common.component.MessengerVo;
 import com.von.user.user.model.UserDto;
 import com.von.user.user.model.User;
@@ -28,17 +28,16 @@ public class UserServiceImpl implements UserService {
     private final JwtProvider jwtProvider;
 
     @Override
-    public MessengerVo save(UserDto t) {
-        repo.save(dtoToEntity(t));
-        return new MessengerVo();
+    public MessengerVo save(UserDto dto) {
+        return MessengerVo.builder()
+                .message((repo.save(dtoToEntity(dto)) instanceof User)?"SUCESS":"FAILURE")
+                .build();
     }
 
     @Override
-    public MessengerVo modify(UserDto user) {
-        repo.save(dtoToEntity(user));
-        Long id = user.getId();
+    public MessengerVo modify(UserDto dto) {
         return MessengerVo.builder()
-                .message((repo.findById(id).isPresent()) ? "success" : "failure")
+                .message((repo.save(dtoToEntity(dto)) instanceof User)?"SUCESS":"FAILURE")
                 .build();
     }
 
@@ -46,7 +45,7 @@ public class UserServiceImpl implements UserService {
     public MessengerVo deleteById(Long id) {
         repo.deleteById(id);
         return MessengerVo.builder()
-                .message((repo.findById(id).isPresent()) ? "failure" : "success")
+                .message((repo.findById(id).isEmpty())?"SUCCESS":"FAILURE")
                 .build();
 //        return MessengerVo.builder()
 //                .message(
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findAll() {
-        return repo.findAll().stream().map(i -> entityToDto(i)).toList();
+        return repo.findAllByOrderByIdDesc().stream().map(i -> entityToDto(i)).toList();
     }
 
     @Override
@@ -81,7 +80,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findUsersByName(String name) {
-
         return repo.findAll().stream()
                 .filter(user -> user.getName().equals(name))
                 .map(this::entityToDto)
@@ -105,26 +103,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public MessengerVo login(UserDto dto) {
-        User user = repo.findByUsername(dto.getUsername()).get();
-        String token = jwtProvider.createToken(entityToDto(user));
-        boolean flag = user.getPassword().equals(dto.getPassword());
-
-        //repo.modifyUserById(dto.getToken(), user.getId());
-
+        var user = repo.findByUsername(dto.getUsername()).get();
+        var accessToken = jwtProvider.createToken(entityToDto(user));
+        var flag = user.getPassword().equals(dto.getPassword());
         //토큰을 각 섹션(Header, Payload, Signature)으로 분할
-        String[] chunks = token.split("\\.");
-
-        Base64.Decoder decoder = Base64.getUrlDecoder();
-
-        String header = new String(decoder.decode(chunks[0]));
-        String payload = new String(decoder.decode(chunks[1]));
-
-        log.info("Token Header : " + header);
-        log.info("Token Payload : " + payload);
+        jwtProvider.printPayload(accessToken);
+        repo.modifyUserById(accessToken, user.getId());
 
         return MessengerVo.builder()
                 .message(flag ? "SUCCESS" : "FAILURE")
-                .token(flag ? jwtProvider.createToken(dto) : "None")
+                .accessToken(flag ? accessToken : "None")
                 .build();
     }
 
@@ -153,4 +141,18 @@ public class UserServiceImpl implements UserService {
         //(count == 1) ? true : false; 여기서 뒤에 true:false; 생략가능
     }
 
+    @Transactional
+    @Override
+    public Boolean logout(String token) {
+        String deleteToken = "";
+        //log.info("token : "+token);
+        String accessToken = token.substring(7);
+
+        Long id = repo.findUserByToken(accessToken).getId();
+        log.info("id : "+id);
+        repo.modifyUserById(deleteToken, id);
+        log.info("repo.findById(id).get().getToken().isEmpty() : {}", repo.findById(id).get().getToken().isEmpty());
+
+        return repo.findById(id).get().getToken().isEmpty();
+    }
 }

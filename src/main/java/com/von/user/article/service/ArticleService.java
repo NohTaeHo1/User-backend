@@ -23,6 +23,7 @@ public interface ArticleService extends CommandService<ArticleDto>, QueryService
                 .content(dto.getContent())
                 .title(dto.getTitle())
                 .board(Board.builder().id(dto.getBoardId()).build())
+                .writer(User.builder().id(dto.getWriterId()).build())
                 .build();
 
     }
@@ -33,10 +34,10 @@ public interface ArticleService extends CommandService<ArticleDto>, QueryService
                 .id(article.getId())
                 .title(article.getTitle())
                 .boardId(article.getBoard().getId())
+                .writerId(article.getWriter().getId())
                 .build();
     }
 
-    List<ArticleDto> findArticleById(Long id);
+    List<ArticleDto> findArticlesByBoardId(Long id);
 
- //   List<ArticleDto> findAllById(Long id);
 }

@@ -1,4 +1,4 @@
-package com.von.user.common.component;
+package com.von.user.common.component.pagination;
 
 import com.fasterxml.jackson.databind.util.ClassUtil;
 import jdk.jfr.Name;

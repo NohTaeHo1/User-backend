@@ -43,7 +43,6 @@ public class UserController {
         return ResponseEntity.ok(service.findById(id));
     }
 
-
     @PutMapping("/modify")
     public ResponseEntity<MessengerVo> modify(@RequestBody UserDto param) {
         log.info("입력받은 정보 : {}", param );
@@ -68,15 +67,22 @@ public class UserController {
         return ResponseEntity.ok(service.findUsersByName(param.getName()));
     }
 
-    @PostMapping(path = "/login")
-    public ResponseEntity<MessengerVo> login(@RequestBody UserDto param) {
-        log.info("입력받은 정보 : {}", param );
-        return ResponseEntity.ok(service.login(param));
-    }
+//    @PostMapping(path = "/login")
+//    public ResponseEntity<MessengerVo> login(@RequestBody UserDto param) {
+//        log.info("입력받은 정보 : {}", param );
+//        return ResponseEntity.ok(service.login(param));
+//    }
+//
+//    @GetMapping(path = "/exist-username")
+//    public ResponseEntity<Boolean> existByUsername(@RequestParam("username") String username){
+//        log.info("existByUsername : "+username);
+//        return ResponseEntity.ok(service.existsByUsername(username));
+//    }
 
-    @GetMapping(path = "/exist-username")
-    public ResponseEntity<Boolean> existByUsername(@RequestParam("username") String username){
-        log.info("existByUsername : "+username);
-        return ResponseEntity.ok(service.existsByUsername(username));
+    @GetMapping("/logout")
+    public ResponseEntity<Boolean> logout(@RequestHeader("Authorization") String accessToken) {
+        log.info("logout request : {}", accessToken);
+        var flag = service.logout(accessToken);
+        return ResponseEntity.ok(flag);
     }
 }

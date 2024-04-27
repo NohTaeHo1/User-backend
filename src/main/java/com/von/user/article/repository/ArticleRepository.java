@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,7 +14,8 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article, Long>{
 
 //    JPQL Default
-    @Query("select a from articles a where a.board.id = :board")
+    @Transactional
+    @Query("select a from articles a where a.board.id = :board" )
     public List<Article> getArticlesByBoardId(@Param("board") Long boardId);
 
 //    //JPQL Default
@@ -23,4 +25,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long>{
 //    @Query("select id, title, content from articles where articles.board.id = :board")
 //    public List<Article> getArticlesByBoardId(@Param("board") Long boardId);
 
+    @Transactional(readOnly = true)
+    List<Article> findAllByOrderByIdDesc();
 }

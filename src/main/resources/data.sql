@@ -14,11 +14,9 @@ insert into users (id, username, password, email, name, phone, job) VALUES (13, 
 insert into users (id, username, password, email, name, phone, job) VALUES (14, 'Land Cruiser', 'sV0>C9Hw', 'asielyd@altervista.org', 'Adoree', '84-031-4849', 'Information Systems Manager');
 insert into users (id, username, password, email, name, phone, job) VALUES (15, 'Avenger', 'wY8#*5zrm`s', 'ssilverwoode@eventbrite.com', 'Steve', '30-792-2106', 'Geological Engineer');
 
-
-
-insert into boards (id, title, description) values (1, 'QnA', 'a01');
-insert into boards (id, title, description) VALUES (2, '리뷰게시판', 'a01');
-
+insert into boards (id, title, description, content) values (1, 'QnA', 'a01', 'QnA');
+insert into boards (id, title, description, content) VALUES (2, '리뷰게시판', 'a01', '리뷰게시판');
+insert into boards(id, title, description, content) values (3, 'free', '누구나 사용가능한 게시판', '자유게시판');
 
 insert into articles (id, board_id, user_id, content, title) values (8025, 1, 15, '정기회의 회기는 100일을, 임시회의 회기는 30일을 초과할 수 없다.', 'Strategic Air Command');
 insert into articles (id, board_id, user_id, content, title) values (3939, 2, 7, '대한민국의 국민이 되는 요건은 법률로 정한다. 모든 국민은 양심의 자유를 가진다.

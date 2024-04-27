@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Builder
-@ToString(exclude = { "id", "token" })
+@ToString(exclude = { "id", "articles","token" })
 public class User extends BaseEntity{
 
     @Id

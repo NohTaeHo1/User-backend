@@ -17,7 +17,7 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
     Optional<User> findUserByUsername(String username);
 
     default User dtoToEntity(UserDto dto) {
-        User user = User.builder()
+        var user = User.builder()
                 .id(dto.getId())
                 .phone(dto.getPhone())
                 .name(dto.getName())
@@ -47,6 +47,7 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
 
     MessengerVo login(UserDto param);
 
-    public boolean existsByUsername(String username);
+    boolean existsByUsername(String username);
 
-    }
+    Boolean logout(String accessToken);
+}
